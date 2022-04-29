@@ -1,0 +1,79 @@
+*{
+    box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
+    font-family: "Poppins";
+}
+.container{
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.nav{
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.logo{
+    width: 30vw;
+    padding: 20px;
+}
+.main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+}
+.campustour{
+    padding: 10px;
+}
+.campustourh1{
+    text-align: center;
+    margin: 20px;
+    background-color: rgb(18, 105, 235);
+    padding: 10px;
+    border-radius: 10px;
+    color: white;
+}
+iframe{
+    border-radius: 10px;
+}
+.main>p{
+    width: 40vw;
+    margin: 20px;
+}
+.para{
+    width: 40vw;
+    margin: 20px;
+    background-color: rgba(97, 194, 250, 0.616);
+    padding: 30px;
+    border-radius: 10px;
+}
+.brochure{
+    color: rgb(18, 105, 235) ;
+}
+.placeimg{
+    width: 50vw;
+    border-style: solid;
+    border-color: rgb(36, 105, 255);
+    border-radius: 10px;
+    margin: 20px;
+}
+@media only screen and (max-width: 600px) {
+    .logo{
+        width: 90vw;
+    }
+    iframe{
+        width: 90vw;
+        
+    }
+    .para{
+        width: 80vw;
+    }
+    .placeimg{
+        width: 80vw;
+    }
+  }
