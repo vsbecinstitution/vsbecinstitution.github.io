@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;500;700&family=Poppins:wght@100;300;400;500;700&family=Ubuntu:wght@300;500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <title>VSBEC - Time Table</title>
+    
+</head>
+<body>
+    <div class="container">
+        <div class="headtext">
+            <h1>Time Table Plotter</h1>
+        </div>
+        <div class="data">
+            <label for="">Enter Number of Sections:</label>
+            <input id="numberofsections" type="text">
+            <label for="">Enter Number of Subjects:</label>
+            <input id="nosubjects" type="text">
+            <button onclick="subjectgenerator()">Next</button>
+        </div>
+        <div id="subjectnames">
+
+        </div>
+        <div id="tables"></div>
+    </div>
+</body>
+<script>
+    let number_subjects = 0
+    let numberofsections = 0
+    let subandper = {}
+    let period = []
+    let periodinlist = []
+    let periodnext = []
+    let periodnew = []
+    let periodn = periodnew
+    
+    function subjectgenerator(){
+        let n = document.getElementById("nosubjects").value;
+        number_subjects = n
+        let m = document.getElementById("numberofsections").value;
+        numberofsections = m
+        let parentdiv = document.getElementById("subjectnames")
+        for(let i = 0;i<n;i++){
+            counter = i+1;
+            let subonediv = document.createElement("div")
+            let subonetext = document.createElement("label")
+            let subone = document.createElement("input")
+            let subonenumber = document.createElement("input")
+            parentdiv.appendChild(subonediv)
+            subonediv.appendChild(subonetext)
+            subonediv.appendChild(subone)
+            subonediv.appendChild(subonenumber)
+            let some = "subname" + i
+            subone.setAttribute("id",some)
+            subone.setAttribute("placeholder","Enter Subject Name")
+            let somenumber = "subnamenumber" + i
+            subonenumber.setAttribute("id",somenumber)
+            subonenumber.setAttribute("placeholder","Periods")
+            let sometext = "subnametext" + i
+            subonetext.setAttribute("id",sometext)
+            document.getElementById(sometext).innerHTML = 'Subject Name ' + counter + " :";
+        }
+        nextbuttondiv = document.createElement("div")
+        nextbutton = document.createElement("button")
+        parentdiv.appendChild(nextbuttondiv)
+        nextbuttondiv.appendChild(nextbutton)
+        nextbutton.setAttribute("id","buttonsubname")
+        document.getElementById("buttonsubname").innerHTML = "Next";
+        nextbutton.setAttribute("onclick","createtable()")
+    
+    }
+
+    function createtable(){
+        
+        for(let i = 0;i<number_subjects;i++){
+            let one = "subname" + i;
+            let two = "subnamenumber" + i;
+            subname = document.getElementById(one).value
+            subper = document.getElementById(two).value
+            subandper[subname] = subper
+            periodinlist.push([subname,subper])
+            for(let j = 0;j<subper;j++){
+                period.push(subname)
+            }
+        }
+        console.log(period)
+        console.log(periodinlist)
+        order()
+        console.log(periodnext)
+        
+            let tables = "";
+            let tableno = "tableno" + 0;
+            classname = document.createElement("h1")
+            classname.innerHTML = "Class " + (0+1)
+            
+            parentdiv = document.getElementById("tables")
+            parentdiv.append(classname)
+            tablediv = document.createElement("div")
+            parentdiv.append(tablediv)
+            tablediv.setAttribute("id",tableno)
+            
+
+            
+                tables += "<tr>" +
+                "<td>" + periodnext[0] + "</td>" +
+                "<td>" + periodnext[1] + "</td>" +
+                "<td>" + periodnext[2] + "</td>" +
+                "<td>" + periodnext[3] + "</td>" +
+                "<td>" + periodnext[4] + "</td>" +
+                "<td>" + periodnext[5] + "</td>" +
+                "<td>" + periodnext[6] + "</td>" +
+                "<td>" + periodnext[7] + "</td>" +
+                "<td>" + periodnext[8] + "</td>" 
+                "</tr>";
+
+                tables += "<tr>" +
+                "<td>" + periodnext[9] + "</td>" +
+                "<td>" + periodnext[10] + "</td>" +
+                "<td>" + periodnext[11] + "</td>" +
+                "<td>" + periodnext[12] + "</td>" +
+                "<td>" + periodnext[13] + "</td>" +
+                "<td>" + periodnext[14] + "</td>" +
+                "<td>" + periodnext[15] + "</td>" +
+                "<td>" + periodnext[16] + "</td>" +
+                "<td>" + periodnext[17] + "</td>" 
+                "</tr>";
+
+                tables += "<tr>" +
+                "<td>" + periodnext[72] + "</td>" +
+                "<td>" + periodnext[73] + "</td>" +
+                "<td>" + periodnext[74] + "</td>" +
+                "<td>" + periodnext[75] + "</td>" +
+                "<td>" + periodnext[76] + "</td>" +
+                "<td>" + periodnext[77] + "</td>" +
+                "<td>" + periodnext[78] + "</td>" +
+                "<td>" + periodnext[79] + "</td>" +
+                "<td>" + periodnext[80] + "</td>" 
+                "</tr>";
+
+                tables += "<tr>" +
+                "<td>" + periodnext[81] + "</td>" +
+                "<td>" + periodnext[82] + "</td>" +
+                "<td>" + periodnext[83] + "</td>" +
+                "<td>" + periodnext[84] + "</td>" +
+                "<td>" + periodnext[85] + "</td>" +
+                "<td>" + periodnext[86] + "</td>" +
+                "<td>" + periodnext[87] + "</td>" +
+                "<td>" + periodnext[88] + "</td>" +
+                "<td>" + periodnext[89] + "</td>" 
+                "</tr>";
+
+                tables += "<tr>" +
+                "<td>" + periodnext[144] + "</td>" +
+                "<td>" + periodnext[145] + "</td>" +
+                "<td>" + periodnext[146] + "</td>" +
+                "<td>" + periodnext[147] + "</td>" +
+                "<td>" + periodnext[148] + "</td>" +
+                "<td>" + periodnext[149] + "</td>" +
+                "<td>" + periodnext[150] + "</td>" +
+                "<td>" + periodnext[151] + "</td>" +
+                "<td>" + periodnext[152] + "</td>" 
+                "</tr>";
+
+                tables += "<tr>" +
+                "<td>" + periodnext[153] + "</td>" +
+                "<td>" + periodnext[154] + "</td>" +
+                "<td>" + periodnext[155] + "</td>" +
+                "<td>" + periodnext[156] + "</td>" +
+                "<td>" + periodnext[157] + "</td>" +
+                "<td>" + periodnext[158] + "</td>" +
+                "<td>" + periodnext[159] + "</td>" +
+                "<td>" + periodnext[160] + "</td>" +
+                "<td>" + periodnext[161] + "</td>" 
+                "</tr>";
+            
+            
+            document.getElementById(tableno).innerHTML = '<table>' + tables + '</table>';
+
+
+
+            let tables1 = "";
+            let tableno1 = "tableno" + 1;
+            classname1 = document.createElement("h1")
+            classname1.innerHTML = "Class " + (1+1)
+            
+            parentdiv = document.getElementById("tables")
+            parentdiv.append(classname1)
+            tablediv1 = document.createElement("div")
+            parentdiv.append(tablediv1)
+            tablediv1.setAttribute("id",tableno1)
+            
+
+                
+                tables1 += "<tr>" +
+                "<td>" + periodnext[54] + "</td>" +
+                "<td>" + periodnext[55] + "</td>" +
+                "<td>" + periodnext[56] + "</td>" +
+                "<td>" + periodnext[57] + "</td>" +
+                "<td>" + periodnext[58] + "</td>" +
+                "<td>" + periodnext[59] + "</td>" +
+                "<td>" + periodnext[60] + "</td>" +
+                "<td>" + periodnext[61] + "</td>" +
+                "<td>" + periodnext[62] + "</td>" 
+                "</tr>";
+
+                tables1 += "<tr>" +
+                "<td>" + periodnext[63] + "</td>" +
+                "<td>" + periodnext[64] + "</td>" +
+                "<td>" + periodnext[65] + "</td>" +
+                "<td>" + periodnext[66] + "</td>" +
+                "<td>" + periodnext[67] + "</td>" +
+                "<td>" + periodnext[68] + "</td>" +
+                "<td>" + periodnext[69] + "</td>" +
+                "<td>" + periodnext[70] + "</td>" +
+                "<td>" + periodnext[71] + "</td>" 
+                "</tr>";
+
+                tables1 += "<tr>" +
+                "<td>" + periodnext[126] + "</td>" +
+                "<td>" + periodnext[127] + "</td>" +
+                "<td>" + periodnext[128] + "</td>" +
+                "<td>" + periodnext[129] + "</td>" +
+                "<td>" + periodnext[130] + "</td>" +
+                "<td>" + periodnext[131] + "</td>" +
+                "<td>" + periodnext[132] + "</td>" +
+                "<td>" + periodnext[133] + "</td>" +
+                "<td>" + periodnext[134] + "</td>" 
+                "</tr>";
+
+                tables1 += "<tr>" +
+                "<td>" + periodnext[135] + "</td>" +
+                "<td>" + periodnext[136] + "</td>" +
+                "<td>" + periodnext[137] + "</td>" +
+                "<td>" + periodnext[138] + "</td>" +
+                "<td>" + periodnext[139] + "</td>" +
+                "<td>" + periodnext[140] + "</td>" +
+                "<td>" + periodnext[141] + "</td>" +
+                "<td>" + periodnext[142] + "</td>" +
+                "<td>" + periodnext[143] + "</td>" 
+                "</tr>";
+
+                tables1 += "<tr>" +
+                "<td>" + periodnext[36] + "</td>" +
+                "<td>" + periodnext[37] + "</td>" +
+                "<td>" + periodnext[38] + "</td>" +
+                "<td>" + periodnext[39] + "</td>" +
+                "<td>" + periodnext[40] + "</td>" +
+                "<td>" + periodnext[41] + "</td>" +
+                "<td>" + periodnext[42] + "</td>" +
+                "<td>" + periodnext[43] + "</td>" +
+                "<td>" + periodnext[44] + "</td>" 
+                "</tr>";
+
+                tables1 += "<tr>" +
+                "<td>" + periodnext[45] + "</td>" +
+                "<td>" + periodnext[46] + "</td>" +
+                "<td>" + periodnext[47] + "</td>" +
+                "<td>" + periodnext[48] + "</td>" +
+                "<td>" + periodnext[49] + "</td>" +
+                "<td>" + periodnext[50] + "</td>" +
+                "<td>" + periodnext[51] + "</td>" +
+                "<td>" + periodnext[52] + "</td>" +
+                "<td>" + periodnext[53] + "</td>" 
+                "</tr>";
+
+
+                document.getElementById(tableno1).innerHTML = '<table>' + tables1 + '</table>';
+
+
+
+
+                let tables2 = "";
+            let tableno2 = "tableno" + 2;
+            classname2 = document.createElement("h1")
+            classname2.innerHTML = "Class " + (2+1)
+            
+            parentdiv = document.getElementById("tables")
+            parentdiv.append(classname2)
+            tablediv2 = document.createElement("div")
+            parentdiv.append(tablediv2)
+            tablediv2.setAttribute("id",tableno2)
+            
+
+                
+                tables2 += "<tr>" +
+                "<td>" + periodnext[108] + "</td>" +
+                "<td>" + periodnext[109] + "</td>" +
+                "<td>" + periodnext[110] + "</td>" +
+                "<td>" + periodnext[111] + "</td>" +
+                "<td>" + periodnext[112] + "</td>" +
+                "<td>" + periodnext[113] + "</td>" +
+                "<td>" + periodnext[114] + "</td>" +
+                "<td>" + periodnext[115] + "</td>" +
+                "<td>" + periodnext[116] + "</td>" 
+                "</tr>";
+
+                tables2 += "<tr>" +
+                "<td>" + periodnext[117] + "</td>" +
+                "<td>" + periodnext[118] + "</td>" +
+                "<td>" + periodnext[119] + "</td>" +
+                "<td>" + periodnext[120] + "</td>" +
+                "<td>" + periodnext[121] + "</td>" +
+                "<td>" + periodnext[122] + "</td>" +
+                "<td>" + periodnext[123] + "</td>" +
+                "<td>" + periodnext[124] + "</td>" +
+                "<td>" + periodnext[125] + "</td>" 
+                "</tr>";
+
+                tables2 += "<tr>" +
+                "<td>" + periodnext[18] + "</td>" +
+                "<td>" + periodnext[19] + "</td>" +
+                "<td>" + periodnext[20] + "</td>" +
+                "<td>" + periodnext[21] + "</td>" +
+                "<td>" + periodnext[22] + "</td>" +
+                "<td>" + periodnext[23] + "</td>" +
+                "<td>" + periodnext[24] + "</td>" +
+                "<td>" + periodnext[25] + "</td>" +
+                "<td>" + periodnext[26] + "</td>" 
+                "</tr>";
+
+                tables2 += "<tr>" +
+                "<td>" + periodnext[27] + "</td>" +
+                "<td>" + periodnext[28] + "</td>" +
+                "<td>" + periodnext[29] + "</td>" +
+                "<td>" + periodnext[30] + "</td>" +
+                "<td>" + periodnext[31] + "</td>" +
+                "<td>" + periodnext[32] + "</td>" +
+                "<td>" + periodnext[33] + "</td>" +
+                "<td>" + periodnext[34] + "</td>" +
+                "<td>" + periodnext[35] + "</td>" 
+                "</tr>";
+
+                tables2 += "<tr>" +
+                "<td>" + periodnext[90] + "</td>" +
+                "<td>" + periodnext[91] + "</td>" +
+                "<td>" + periodnext[92] + "</td>" +
+                "<td>" + periodnext[93] + "</td>" +
+                "<td>" + periodnext[94] + "</td>" +
+                "<td>" + periodnext[95] + "</td>" +
+                "<td>" + periodnext[96] + "</td>" +
+                "<td>" + periodnext[97] + "</td>" +
+                "<td>" + periodnext[98] + "</td>" 
+                "</tr>";
+
+                tables2 += "<tr>" +
+                "<td>" + periodnext[99] + "</td>" +
+                "<td>" + periodnext[100] + "</td>" +
+                "<td>" + periodnext[101] + "</td>" +
+                "<td>" + periodnext[102] + "</td>" +
+                "<td>" + periodnext[103] + "</td>" +
+                "<td>" + periodnext[104] + "</td>" +
+                "<td>" + periodnext[105] + "</td>" +
+                "<td>" + periodnext[106] + "</td>" +
+                "<td>" + periodnext[107] + "</td>" 
+                "</tr>";
+
+
+                document.getElementById(tableno2).innerHTML = '<table>' + tables2 + '</table>';
+
+
+
+
+
+
+        
+        function order(){
+            for(let i = 0;i<(number_subjects*9);i++){
+                for(let j =0;j<number_subjects;j++){
+                    periodnew.push(periodinlist[j][0])
+                    periodinlist[j][1] = periodinlist[j][1]-1
+                    console.log(periodinlist[j][0])
+                }
+            }
+            for(let i = 0;i<numberofsections;i++){
+                for(let j = 0;j<number_subjects*9;j++){
+                    periodnew.push(periodn[j])
+                }
+            }
+            console.log(periodnew)
+            for(let i = 0;i<numberofsections;i++){
+                for(let j =0;j<(number_subjects*9);j++){
+                    periodnext.push(periodnew[j+i+3])
+                }
+            }
+
+            console.log(periodnext)
+        }
+
+
+
+        function periodlist(dict){
+            const objectLength = obj => Object.entries(obj).length;
+            dictlength = objectLength(dict)
+            localdict = dict
+            
+        }
+    }
+</script>
+</html>
+
