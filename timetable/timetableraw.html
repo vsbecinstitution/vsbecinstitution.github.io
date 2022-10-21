@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;500;700&family=Poppins:wght@100;300;400;500;700&family=Ubuntu:wght@300;500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <title>VSBEC - Time Table</title>
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="headtext">
+            <h1>Time Table Plotter</h1>
+        </div>
+        <div class="data">
+            <label for="">Enter Number of Sections:</label>
+            <input id="numberofsections" type="text">
+            <label for="">Enter Number of Subjects: (Without Lab)</label>
+            <input id="nosubjects" type="text">
+            <button onclick="subjectgenerator()">Next</button>
+        </div>
+        <div id="subjectnames">
+
+        </div>
+        <div id="tables"></div>
+        <div id="staff"></div>
+        <div id="labinp"></div>
+    </div>
+</body>
+<script>
+    let number_subjects = 0
+    let numberofsections = 0
+    let subandper = {}
+    let period = []
+    let periodinlist = []
+    let periodnext = []
+    let periodnew = []
+    let periodn = periodnew
+    let withoutlab = []
+
+    function subjectgenerator() {
+        let n = document.getElementById("nosubjects").value;
+        number_subjects = n
+        let m = document.getElementById("numberofsections").value;
+        numberofsections = m
+        let parentdiv = document.getElementById("subjectnames")
+        for (let i = 0; i < n; i++) {
+            counter = i + 1;
+            let subonediv = document.createElement("div")
+            let subonetext = document.createElement("label")
+            let subone = document.createElement("input")
+            let subonenumber = document.createElement("input")
+            parentdiv.appendChild(subonediv)
+            subonediv.appendChild(subonetext)
+            subonediv.appendChild(subone)
+            subonediv.appendChild(subonenumber)
+            let some = "subname" + i
+            subone.setAttribute("id", some)
+            subone.setAttribute("placeholder", "Enter Subject Name")
+            let somenumber = "subnamenumber" + i
+            subonenumber.setAttribute("id", somenumber)
+            subonenumber.setAttribute("placeholder", "Periods")
+            let sometext = "subnametext" + i
+            subonetext.setAttribute("id", sometext)
+            document.getElementById(sometext).innerHTML = 'Subject Name ' + counter + " :";
+        }
+        nextbuttondiv = document.createElement("div")
+        nextbutton = document.createElement("button")
+        parentdiv.appendChild(nextbuttondiv)
+        nextbuttondiv.appendChild(nextbutton)
+        nextbutton.setAttribute("id", "buttonsubname")
+        document.getElementById("buttonsubname").innerHTML = "Next";
+        nextbutton.setAttribute("onclick", "createtable()")
+
+    }
+
+    function createtable() {
+
+        for (let i = 0; i < number_subjects; i++) {
+            let one = "subname" + i;
+            let two = "subnamenumber" + i;
+            subname = document.getElementById(one).value
+            subper = document.getElementById(two).value
+            subandper[subname] = subper
+            periodinlist.push([subname, subper])
+            for (let j = 0; j < subper; j++) {
+                period.push(subname)
+            }
+        }
+        console.log(period)
+        console.log(periodinlist)
+        order()
+        console.log(periodnext)
+
+        let tables = "";
+        let tableno = "tableno" + 0;
+        classname = document.createElement("h1")
+        classname.innerHTML = "Class " + (0 + 1)
+
+        parentdiv = document.getElementById("tables")
+        parentdiv.append(classname)
+        tablediv = document.createElement("div")
+        parentdiv.append(tablediv)
+        tablediv.setAttribute("id", tableno)
+
+
+        tables += "<tr>" +
+            "<th>" + "Period" + "</th>" +
+            "<th>" + "1" + "</th>" +
+            "<th>" + "2" + "</th>" +
+            "<th>" + "3" + "</th>" +
+            "<th>" + "4" + "</th>" +
+            "<th>" + "5" + "</th>" +
+            "<th>" + "6" + "</th>" +
+            "<th>" + "7" + "</th>" +
+            "<th>" + "8" + "</th>" +
+            "<th>" + "9" + "</th>"
+        "</tr>";
+
+        tables += "<tr>" +
+            "<th>" + "Monday" + "</th>" +
+            "<td>" + periodnext[0] + "</td>" +
+            "<td>" + periodnext[1] + "</td>" +
+            "<td>" + periodnext[2] + "</td>" +
+            "<td>" + periodnext[3] + "</td>" +
+            "<td>" + periodnext[4] + "</td>" +
+            "<td>" + periodnext[5] + "</td>" +
+            "<td>" + periodnext[6] + "</td>" +
+            "<td>" + periodnext[7] + "</td>" +
+            "<td>" + periodnext[8] + "</td>"
+        "</tr>";
+
+        tables += "<tr>" +
+            "<th>" + "Tuesday" + "</th>" +
+            "<td>" + periodnext[9] + "</td>" +
+            "<td>" + periodnext[10] + "</td>" +
+            "<td>" + periodnext[11] + "</td>" +
+            "<td>" + periodnext[12] + "</td>" +
+            "<td>" + periodnext[13] + "</td>" +
+            "<td>" + periodnext[14] + "</td>" +
+            "<td>" + periodnext[15] + "</td>" +
+            "<td>" + periodnext[16] + "</td>" +
+            "<td>" + periodnext[17] + "</td>"
+        "</tr>";
+
+
+
+
+        tables += "<tr>" +
+            "<th>" + "Wednesday" + "</th>" +
+            "<td>" + periodnext[72] + "</td>" +
+            "<td>" + periodnext[73] + "</td>" +
+            "<td>" + periodnext[74] + "</td>" +
+            "<td>" + periodnext[75] + "</td>" +
+            "<td>" + periodnext[76] + "</td>" +
+            "<td>" + periodnext[77] + "</td>" +
+            "<td>" + periodnext[78] + "</td>" +
+            "<td>" + periodnext[79] + "</td>" +
+            "<td>" + periodnext[80] + "</td>"
+        "</tr>";
+
+        tables += "<tr>" +
+            "<th>" + "Thursday" + "</th>" +
+            "<td>" + periodnext[81] + "</td>" +
+            "<td>" + periodnext[82] + "</td>" +
+            "<td>" + periodnext[83] + "</td>" +
+            "<td>" + periodnext[84] + "</td>" +
+            "<td>" + periodnext[85] + "</td>" +
+            "<td>" + periodnext[86] + "</td>" +
+            "<td>" + periodnext[87] + "</td>" +
+            "<td>" + periodnext[88] + "</td>" +
+            "<td>" + periodnext[89] + "</td>"
+        "</tr>";
+
+        tables += "<tr>" +
+            "<th>" + "Friday" + "</th>" +
+            "<td>" + periodnext[144] + "</td>" +
+            "<td>" + periodnext[145] + "</td>" +
+            "<td>" + periodnext[146] + "</td>" +
+            "<td>" + periodnext[147] + "</td>" +
+            "<td>" + periodnext[148] + "</td>" +
+            "<td>" + periodnext[149] + "</td>" +
+            "<td>" + periodnext[150] + "</td>" +
+            "<td>" + periodnext[151] + "</td>" +
+            "<td>" + periodnext[152] + "</td>"
+        "</tr>";
+
+        tables += "<tr>" +
+            "<th>" + "Saturday" + "</th>" +
+            "<td>" + periodnext[153] + "</td>" +
+            "<td>" + periodnext[154] + "</td>" +
+            "<td>" + periodnext[155] + "</td>" +
+            "<td>" + periodnext[156] + "</td>" +
+            "<td>" + periodnext[157] + "</td>" +
+            "<td>" + periodnext[158] + "</td>" +
+            "<td>" + periodnext[159] + "</td>" +
+            "<td>" + periodnext[160] + "</td>" +
+            "<td>" + periodnext[161] + "</td>"
+        "</tr>";
+
+        for (let j = 0; j < 18; j++) {
+            withoutlab.push(periodnext[j])
+        }
+        for (let j = 72; j < 90; j++) {
+            withoutlab.push(periodnext[j])
+        }
+        for (let j = 144; j < 162; j++) {
+            withoutlab.push(periodnext[j])
+        }
+
+
+        document.getElementById(tableno).innerHTML = '<table>' + tables + '</table>';
+
+
+
+        let tables1 = "";
+        let tableno1 = "tableno" + 1;
+        classname1 = document.createElement("h1")
+        classname1.innerHTML = "Class " + (1 + 1)
+
+        parentdiv = document.getElementById("tables")
+        parentdiv.append(classname1)
+        tablediv1 = document.createElement("div")
+        parentdiv.append(tablediv1)
+        tablediv1.setAttribute("id", tableno1)
+
+        tables1 += "<tr>" +
+            "<th>" + "Period" + "</th>" +
+            "<th>" + "1" + "</th>" +
+            "<th>" + "2" + "</th>" +
+            "<th>" + "3" + "</th>" +
+            "<th>" + "4" + "</th>" +
+            "<th>" + "5" + "</th>" +
+            "<th>" + "6" + "</th>" +
+            "<th>" + "7" + "</th>" +
+            "<th>" + "8" + "</th>" +
+            "<th>" + "9" + "</th>"
+        "</tr>";
+
+        tables1 += "<tr>" +
+            "<th>" + "Monday" + "</th>" +
+            "<td>" + periodnext[54] + "</td>" +
+            "<td>" + periodnext[55] + "</td>" +
+            "<td>" + periodnext[56] + "</td>" +
+            "<td>" + periodnext[57] + "</td>" +
+            "<td>" + periodnext[58] + "</td>" +
+            "<td>" + periodnext[59] + "</td>" +
+            "<td>" + periodnext[60] + "</td>" +
+            "<td>" + periodnext[61] + "</td>" +
+            "<td>" + periodnext[62] + "</td>"
+        "</tr>";
+
+        tables1 += "<tr>" +
+            "<th>" + "Tuesday" + "</th>" +
+            "<td>" + periodnext[63] + "</td>" +
+            "<td>" + periodnext[64] + "</td>" +
+            "<td>" + periodnext[65] + "</td>" +
+            "<td>" + periodnext[66] + "</td>" +
+            "<td>" + periodnext[67] + "</td>" +
+            "<td>" + periodnext[68] + "</td>" +
+            "<td>" + periodnext[69] + "</td>" +
+            "<td>" + periodnext[70] + "</td>" +
+            "<td>" + periodnext[71] + "</td>"
+        "</tr>";
+
+        tables1 += "<tr>" +
+            "<th>" + "Wednesday" + "</th>" +
+            "<td>" + periodnext[126] + "</td>" +
+            "<td>" + periodnext[127] + "</td>" +
+            "<td>" + periodnext[128] + "</td>" +
+            "<td>" + periodnext[129] + "</td>" +
+            "<td>" + periodnext[130] + "</td>" +
+            "<td>" + periodnext[131] + "</td>" +
+            "<td>" + periodnext[132] + "</td>" +
+            "<td>" + periodnext[133] + "</td>" +
+            "<td>" + periodnext[134] + "</td>"
+        "</tr>";
+
+        tables1 += "<tr>" +
+            "<th>" + "Thursday" + "</th>" +
+            "<td>" + periodnext[135] + "</td>" +
+            "<td>" + periodnext[136] + "</td>" +
+            "<td>" + periodnext[137] + "</td>" +
+            "<td>" + periodnext[138] + "</td>" +
+            "<td>" + periodnext[139] + "</td>" +
+            "<td>" + periodnext[140] + "</td>" +
+            "<td>" + periodnext[141] + "</td>" +
+            "<td>" + periodnext[142] + "</td>" +
+            "<td>" + periodnext[143] + "</td>"
+        "</tr>";
+
+        tables1 += "<tr>" +
+            "<th>" + "Friday" + "</th>" +
+            "<td>" + periodnext[36] + "</td>" +
+            "<td>" + periodnext[37] + "</td>" +
+            "<td>" + periodnext[38] + "</td>" +
+            "<td>" + periodnext[39] + "</td>" +
+            "<td>" + periodnext[40] + "</td>" +
+            "<td>" + periodnext[41] + "</td>" +
+            "<td>" + periodnext[42] + "</td>" +
+            "<td>" + periodnext[43] + "</td>" +
+            "<td>" + periodnext[44] + "</td>"
+        "</tr>";
+
+        tables1 += "<tr>" +
+            "<th>" + "Saturday" + "</th>" +
+            "<td>" + periodnext[45] + "</td>" +
+            "<td>" + periodnext[46] + "</td>" +
+            "<td>" + periodnext[47] + "</td>" +
+            "<td>" + periodnext[48] + "</td>" +
+            "<td>" + periodnext[49] + "</td>" +
+            "<td>" + periodnext[50] + "</td>" +
+            "<td>" + periodnext[51] + "</td>" +
+            "<td>" + periodnext[52] + "</td>" +
+            "<td>" + periodnext[53] + "</td>"
+        "</tr>";
+
+        for (let j = 54; j < 72; j++) {
+            withoutlab.push(periodnext[j])
+        }
+        for (let j = 126; j < 144; j++) {
+            withoutlab.push(periodnext[j])
+        }
+        for (let j = 36; j < 54; j++) {
+            withoutlab.push(periodnext[j])
+        }
+        document.getElementById(tableno1).innerHTML = '<table>' + tables1 + '</table>';
+
+
+
+
+        let tables2 = "";
+        let tableno2 = "tableno" + 2;
+        classname2 = document.createElement("h1")
+        classname2.innerHTML = "Class " + (2 + 1)
+
+        parentdiv = document.getElementById("tables")
+        parentdiv.append(classname2)
+        tablediv2 = document.createElement("div")
+        parentdiv.append(tablediv2)
+        tablediv2.setAttribute("id", tableno2)
+
+        tables2 += "<tr>" +
+            "<th>" + "Period" + "</th>" +
+            "<th>" + "1" + "</th>" +
+            "<th>" + "2" + "</th>" +
+            "<th>" + "3" + "</th>" +
+            "<th>" + "4" + "</th>" +
+            "<th>" + "5" + "</th>" +
+            "<th>" + "6" + "</th>" +
+            "<th>" + "7" + "</th>" +
+            "<th>" + "8" + "</th>" +
+            "<th>" + "9" + "</th>"
+        "</tr>";
+
+
+        tables2 += "<tr>" +
+            "<th>" + "Monday" + "</th>" +
+            "<td>" + periodnext[108] + "</td>" +
+            "<td>" + periodnext[109] + "</td>" +
+            "<td>" + periodnext[110] + "</td>" +
+            "<td>" + periodnext[111] + "</td>" +
+            "<td>" + periodnext[112] + "</td>" +
+            "<td>" + periodnext[113] + "</td>" +
+            "<td>" + periodnext[114] + "</td>" +
+            "<td>" + periodnext[115] + "</td>" +
+            "<td>" + periodnext[116] + "</td>"
+        "</tr>";
+
+        tables2 += "<tr>" +
+            "<th>" + "Tuesday" + "</th>" +
+            "<td>" + periodnext[117] + "</td>" +
+            "<td>" + periodnext[118] + "</td>" +
+            "<td>" + periodnext[119] + "</td>" +
+            "<td>" + periodnext[120] + "</td>" +
+            "<td>" + periodnext[121] + "</td>" +
+            "<td>" + periodnext[122] + "</td>" +
+            "<td>" + periodnext[123] + "</td>" +
+            "<td>" + periodnext[124] + "</td>" +
+            "<td>" + periodnext[125] + "</td>"
+        "</tr>";
+
+        tables2 += "<tr>" +
+            "<th>" + "Wednesday" + "</th>" +
+            "<td>" + periodnext[18] + "</td>" +
+            "<td>" + periodnext[19] + "</td>" +
+            "<td>" + periodnext[20] + "</td>" +
+            "<td>" + periodnext[21] + "</td>" +
+            "<td>" + periodnext[22] + "</td>" +
+            "<td>" + periodnext[23] + "</td>" +
+            "<td>" + periodnext[24] + "</td>" +
+            "<td>" + periodnext[25] + "</td>" +
+            "<td>" + periodnext[26] + "</td>"
+        "</tr>";
+
+        tables2 += "<tr>" +
+            "<th>" + "Thursday" + "</th>" +
+            "<td>" + periodnext[27] + "</td>" +
+            "<td>" + periodnext[28] + "</td>" +
+            "<td>" + periodnext[29] + "</td>" +
+            "<td>" + periodnext[30] + "</td>" +
+            "<td>" + periodnext[31] + "</td>" +
+            "<td>" + periodnext[32] + "</td>" +
+            "<td>" + periodnext[33] + "</td>" +
+            "<td>" + periodnext[34] + "</td>" +
+            "<td>" + periodnext[35] + "</td>"
+        "</tr>";
+
+        tables2 += "<tr>" +
+            "<th>" + "Friday" + "</th>" +
+            "<td>" + periodnext[90] + "</td>" +
+            "<td>" + periodnext[91] + "</td>" +
+            "<td>" + periodnext[92] + "</td>" +
+            "<td>" + periodnext[93] + "</td>" +
+            "<td>" + periodnext[94] + "</td>" +
+            "<td>" + periodnext[95] + "</td>" +
+            "<td>" + periodnext[96] + "</td>" +
+            "<td>" + periodnext[97] + "</td>" +
+            "<td>" + periodnext[98] + "</td>"
+        "</tr>";
+
+        tables2 += "<tr>" +
+            "<th>" + "Saturday" + "</th>" +
+            "<td>" + periodnext[99] + "</td>" +
+            "<td>" + periodnext[100] + "</td>" +
+            "<td>" + periodnext[101] + "</td>" +
+            "<td>" + periodnext[102] + "</td>" +
+            "<td>" + periodnext[103] + "</td>" +
+            "<td>" + periodnext[104] + "</td>" +
+            "<td>" + periodnext[105] + "</td>" +
+            "<td>" + periodnext[106] + "</td>" +
+            "<td>" + periodnext[107] + "</td>"
+        "</tr>";
+
+        for (let j = 108; j < 126; j++) {
+            withoutlab.push(periodnext[j])
+        }
+        for (let j = 18; j < 36; j++) {
+            withoutlab.push(periodnext[j])
+        }
+        for (let j = 90; j < 108; j++) {
+            withoutlab.push(periodnext[j])
+        }
+
+        document.getElementById(tableno2).innerHTML = '<table>' + tables2 + '</table>';
+        console.log(periodnext)
+        parentdiv = document.getElementById("tables")
+        nextbutton = document.createElement("button")
+        parentdiv.appendChild(nextbutton)
+        nextbutton.setAttribute("id", "buttonstafftosub")
+        document.getElementById("buttonstafftosub").innerHTML = "Next";
+        nextbutton.setAttribute("onclick", "stafftosub()")
+
+
+
+
+
+
+
+        function order() {
+            for (let i = 0; i < (number_subjects * 9); i++) {
+                for (let j = 0; j < number_subjects; j++) {
+                    periodnew.push(periodinlist[j][0])
+                    periodinlist[j][1] = periodinlist[j][1] - 1
+                    console.log(periodinlist[j][0])
+                }
+            }
+            for (let i = 0; i < numberofsections; i++) {
+                for (let j = 0; j < number_subjects * 9; j++) {
+                    periodnew.push(periodn[j])
+                }
+            }
+            console.log(periodnew)
+            for (let i = 0; i < numberofsections; i++) {
+                for (let j = 0; j < (number_subjects * 9); j++) {
+                    periodnext.push(periodnew[j + i + 3])
+                }
+            }
+
+
+        }
+
+
+
+        function periodlist(dict) {
+            const objectLength = obj => Object.entries(obj).length;
+            dictlength = objectLength(dict)
+            localdict = dict
+
+        }
+    }
+
+    function stafftosub() {
+        parentdiv = document.getElementById("staff")
+        for(let i = 0;i<numberofsections;i++){
+            classna = document.createElement("h1")
+            classna.innerHTML = "Class " + ( i+ 1)
+            parentdiv.appendChild(classna)
+            h1 = document.createElement("h1").innerHTML = ""
+            for (let j = 0; j < number_subjects; j++) {
+            let inputdiv = document.createElement("div")
+            let inputlabel = document.createElement("label")
+            let inputel = document.createElement("input")
+            parentdiv.appendChild(inputdiv)
+            inputdiv.appendChild(inputlabel)
+            inputdiv.appendChild(inputel)
+            let some = "inputstafftosub" + i + j
+            inputel.setAttribute("id", some)
+            inputel.setAttribute("placeholder", "Enter Staff Name")
+            let sometext = "stafftosubnametext" + i + j
+            inputlabel.setAttribute("id", sometext)
+            document.getElementById(sometext).innerHTML = periodinlist[j][0];
+        }
+        }
+
+        nextbutton = document.createElement("button")
+        parentdiv.appendChild(nextbutton)
+        nextbutton.setAttribute("id", "labinpbtn")
+        document.getElementById("labinpbtn").innerHTML = "Next";
+        nextbutton.setAttribute("onclick", "labinput()")
+    }
+
+    function labinput(){
+        parentdiv = document.getElementById("labinp")
+        labinputdiv = document.createElement("div")
+
+        let tables = "";
+        let tableno = "tableno";
+        classname = document.createElement("h1")
+        classname.innerHTML = "Class " + (1)
+
+        parentdiv = document.getElementById("labinp")
+        parentdiv.append(classname)
+        tablediv = document.createElement("div")
+        parentdiv.append(tablediv)
+        tablediv.setAttribute("id", tableno)
+
+        tables += "<tr>" +
+            "<th>" + "Period" + "</th>" +
+            "<th>" + "1" + "</th>" +
+            "<th>" + "2" + "</th>" +
+            "<th>" + "3" + "</th>" +
+            "<th>" + "4" + "</th>" +
+            "<th>" + "5" + "</th>" +
+            "<th>" + "6" + "</th>" +
+            "<th>" + "7" + "</th>" +
+            "<th>" + "8" + "</th>" +
+            "<th>" + "9" + "</th>"
+        "</tr>";
+
+        tables += "<tr>" +
+            "<th>" + "Monday" + "</th>" +
+            "<td> <input class = 'labtableinput' id = 'lab0' value = '" + periodnext[0] + "'></td>" +
+            "<td> <input class = 'labtableinput' id = 'lab1' value = '" + periodnext[1] + "'></td>" +
+            "<td> <input class = 'labtableinput' id = 'lab2' value = '" + periodnext[2] + "'></td>" +
+            "<td> <input class = 'labtableinput' id = 'lab3' value = '" + periodnext[3] + "'></td>" +
+            "<td> <input class = 'labtableinput' id = 'lab4' value = '" + periodnext[4] + "'></td>" +
+            "<td> <input class = 'labtableinput' id = 'lab5' value = '" + periodnext[5] + "'></td>" +
+            "<td> <input class = 'labtableinput' id = 'lab6' value = '" + periodnext[6] + "'></td>" +
+            "<td> <input class = 'labtableinput' id = 'lab7' value = '" + periodnext[7] + "'></td>" +
+            "<td> <input class = 'labtableinput' id = 'lab8' value = '" + periodnext[8] + "'></td>"
+        "</tr>";
+
+        tables += "<tr>" +
+            "<th>" + "Tuesday" + "</th>" +
+            "<td> <input class = 'labtableinput' id = 'lab9' value = '" + periodnext[9] + "'></td>" +
+            "<td> <input class = 'labtableinput' id = 'lab10' value = '" + periodnext[10] + "'></td>" +
+            "<td> <input class = 'labtableinput' id = 'lab11' value = '" + periodnext[11] + "'></td>" +
+            "<td> <input class = 'labtableinput' id = 'lab12' value = '" + periodnext[12] + "'></td>" +
+            "<td> <input class = 'labtableinput' id = 'lab13' value = '" + periodnext[13] + "'></td>" +
+            "<td> <input class = 'labtableinput' id = 'lab14' value = '" + periodnext[14] + "'></td>" +
+            "<td> <input class = 'labtableinput' id = 'lab15' value = '" + periodnext[15] + "'></td>" +
+            "<td> <input class = 'labtableinput' id = 'lab16' value = '" + periodnext[16] + "'></td>" +
+            "<td> <input class = 'labtableinput' id = 'lab17' value = '" + periodnext[17] + "'></td>"
+        "</tr>";
+
+
+
+
+        tables += "<tr>" +
+            "<th>" + "Wednesday" + "</th>" +
+            "<td> <input class = 'labtableinput' id = 'lab18' value = '" + periodnext[72] + "'></td>" +
+            "<td> <input class = 'labtableinput' id = 'lab19' value = '" + periodnext[73] + "'></td>" +
+            "<td> <input class = 'labtableinput' id = 'lab20' value = '" + periodnext[74] + "'></td>" +
+            "<td> <input class = 'labtableinput' id = 'lab21' value = '" + periodnext[75] + "'></td>" +
+            "<td> <input class = 'labtableinput' id = 'lab22' value = '" + periodnext[76] + "'></td>" +
+            "<td> <input class = 'labtableinput' id = 'lab23' value = '" + periodnext[77] + "'></td>" +
+            "<td> <input class = 'labtableinput' id = 'lab24' value = '" + periodnext[78] + "'></td>" +
+            "<td> <input class = 'labtableinput' id = 'lab25' value = '" + periodnext[79] + "'></td>" +
+            "<td> <input class = 'labtableinput' id = 'lab26' value = '" + periodnext[80] + "'></td>"
+        "</tr>";
+
+        tables += "<tr>" +
+            "<th>" + "Thursday" + "</th>" +
+            "<td> <input class = 'labtableinput' id = 'lab27' value = '" + periodnext[81] + "'></td>" +
+            "<td> <input class = 'labtableinput' id = 'lab28' value = '" + periodnext[82] + "'></td>" +
+            "<td> <input class = 'labtableinput' id = 'lab29' value = '" + periodnext[83] + "'></td>" +
+            "<td> <input class = 'labtableinput' id = 'lab30' value = '" + periodnext[84] + "'></td>" +
+            "<td> <input class = 'labtableinput' id = 'lab31' value = '" + periodnext[85] + "'></td>" +
+            "<td> <input class = 'labtableinput' id = 'lab32' value = '" + periodnext[86] + "'></td>" +
+            "<td> <input class = 'labtableinput' id = 'lab33' value = '" + periodnext[87] + "'></td>" +
+            "<td> <input class = 'labtableinput' id = 'lab34' value = '" + periodnext[88] + "'></td>" +
+            "<td> <input class = 'labtableinput' id = 'lab35' value = '" + periodnext[89] + "'></td>"
+        "</tr>";
+
+        tables += "<tr>" +
+            "<th>" + "Friday" + "</th>" +
+            "<td> <input class = 'labtableinput' id = 'lab36' value = '" + periodnext[144] + "'></td>" +
+            "<td> <input class = 'labtableinput' id = 'lab37' value = '" + periodnext[145] + "'></td>" +
+            "<td> <input class = 'labtableinput' id = 'lab38' value = '" + periodnext[146] + "'></td>" +
+            "<td> <input class = 'labtableinput' id = 'lab39' value = '" + periodnext[147] + "'></td>" +
+            "<td> <input class = 'labtableinput' id = 'lab40' value = '" + periodnext[148] + "'></td>" +
+            "<td> <input class = 'labtableinput' id = 'lab41' value = '" + periodnext[149] + "'></td>" +
+            "<td> <input class = 'labtableinput' id = 'lab42' value = '" + periodnext[150] + "'></td>" +
+            "<td> <input class = 'labtableinput' id = 'lab43' value = '" + periodnext[151] + "'></td>" +
+            "<td> <input class = 'labtableinput' id = 'lab44' value = '" + periodnext[152] + "'></td>"
+        "</tr>";
+
+        tables += "<tr>" +
+            "<th>" + "Saturday" + "</th>" +
+            "<td> <input class = 'labtableinput' id = 'lab45' value = '" + periodnext[153] + "'></td>" +
+            "<td> <input class = 'labtableinput' id = 'lab46' value = '" + periodnext[154] + "'></td>" +
+            "<td> <input class = 'labtableinput' id = 'lab47' value = '" + periodnext[155] + "'></td>" +
+            "<td> <input class = 'labtableinput' id = 'lab48' value = '" + periodnext[156] + "'></td>" +
+            "<td> <input class = 'labtableinput' id = 'lab49' value = '" + periodnext[157] + "'></td>" +
+            "<td> <input class = 'labtableinput' id = 'lab50' value = '" + periodnext[158] + "'></td>" +
+            "<td> <input class = 'labtableinput' id = 'lab51' value = '" + periodnext[159] + "'></td>" +
+            "<td> <input class = 'labtableinput' id = 'lab52' value = '" + periodnext[160] + "'></td>" +
+            "<td> <input class = 'labtableinput' id = 'lab53' value = '" + periodnext[161] + "'></td>"
+        "</tr>";
+        
+        tablediv.innerHTML ="<table>" +  tables + "</table>"
+
+        let tables1 = "";
+        let tableno1 = "tableno";
+        classname1 = document.createElement("h1")
+        classname1.innerHTML = "Class " + (2)
+
+        parentdiv = document.getElementById("labinp")
+        parentdiv.append(classname1)
+        tablediv1 = document.createElement("div")
+        parentdiv.append(tablediv1)
+        tablediv1.setAttribute("id", tableno1)
+
+        tables1 += "<tr>" +
+            "<th>" + "Period" + "</th>" +
+            "<th>" + "1" + "</th>" +
+            "<th>" + "2" + "</th>" +
+            "<th>" + "3" + "</th>" +
+            "<th>" + "4" + "</th>" +
+            "<th>" + "5" + "</th>" +
+            "<th>" + "6" + "</th>" +
+            "<th>" + "7" + "</th>" +
+            "<th>" + "8" + "</th>" +
+            "<th>" + "9" + "</th>"
+        "</tr>";
+
+        tables1 += "<tr>" +
+            "<th>" + "Monday" + "</th>" +
+            "<td>  <input class = 'labtableinput' id = 'lab54' value = '" + periodnext[54] + "'></td>" +
+            "<td>  <input class = 'labtableinput' id = 'lab55' value = '" + periodnext[55] + "'></td>" +
+            "<td>  <input class = 'labtableinput' id = 'lab56' value = '" + periodnext[56] + "'></td>" +
+            "<td>  <input class = 'labtableinput' id = 'lab57' value = '" + periodnext[57] + "'></td>" +
+            "<td>  <input class = 'labtableinput' id = 'lab58' value = '" + periodnext[58] + "'></td>" +
+            "<td>  <input class = 'labtableinput' id = 'lab59' value = '" + periodnext[59] + "'></td>" +
+            "<td>  <input class = 'labtableinput' id = 'lab60' value = '" + periodnext[60] + "'></td>" +
+            "<td>  <input class = 'labtableinput' id = 'lab61' value = '" + periodnext[61] + "'></td>" +
+            "<td>  <input class = 'labtableinput' id = 'lab62' value = '" + periodnext[62] + "'></td>"
+        "</tr>";
+
+        tables1 += "<tr>" +
+            "<th>" + "Tuesday" + "</th>" +
+            "<td>  <input class = 'labtableinput' id = 'lab63' value = '" + periodnext[63] + "'></td>" +
+            "<td>  <input class = 'labtableinput' id = 'lab64' value = '" + periodnext[64] + "'></td>" +
+            "<td>  <input class = 'labtableinput' id = 'lab65' value = '" + periodnext[65] + "'></td>" +
+            "<td>  <input class = 'labtableinput' id = 'lab66' value = '" + periodnext[66] + "'></td>" +
+            "<td>  <input class = 'labtableinput' id = 'lab67' value = '" + periodnext[67] + "'></td>" +
+            "<td>  <input class = 'labtableinput' id = 'lab68' value = '" + periodnext[68] + "'></td>" +
+            "<td>  <input class = 'labtableinput' id = 'lab69' value = '" + periodnext[69] + "'></td>" +
+            "<td>  <input class = 'labtableinput' id = 'lab70' value = '" + periodnext[70] + "'></td>" +
+            "<td>  <input class = 'labtableinput' id = 'lab71' value = '" + periodnext[71] + "'></td>"
+        "</tr>";
+
+        tables1 += "<tr>" +
+            "<th>" + "Wednesday" + "</th>" +
+            "<td>  <input class = 'labtableinput' id = 'lab72' value = '" + periodnext[126] + "'></td>" +
+            "<td>  <input class = 'labtableinput' id = 'lab73' value = '" + periodnext[127] + "'></td>" +
+            "<td>  <input class = 'labtableinput' id = 'lab74' value = '" + periodnext[128] + "'></td>" +
+            "<td>  <input class = 'labtableinput' id = 'lab75' value = '" + periodnext[129] + "'></td>" +
+            "<td>  <input class = 'labtableinput' id = 'lab76' value = '" + periodnext[130] + "'></td>" +
+            "<td>  <input class = 'labtableinput' id = 'lab77' value = '" + periodnext[131] + "'></td>" +
+            "<td>  <input class = 'labtableinput' id = 'lab78' value = '" + periodnext[132] + "'></td>" +
+            "<td>  <input class = 'labtableinput' id = 'lab79' value = '" + periodnext[133] + "'></td>" +
+            "<td>  <input class = 'labtableinput' id = 'lab80' value = '" + periodnext[134] + "'></td>"
+        "</tr>";
+
+        tables1 += "<tr>" +
+            "<th>" + "Thursday" + "</th>" +
+            "<td>  <input class = 'labtableinput' id = 'lab81' value = '" + periodnext[135] + "'></td>" +
+            "<td>  <input class = 'labtableinput' id = 'lab82' value = '" + periodnext[136] + "'></td>" +
+            "<td>  <input class = 'labtableinput' id = 'lab83' value = '" + periodnext[137] + "'></td>" +
+            "<td>  <input class = 'labtableinput' id = 'lab84' value = '" + periodnext[138] + "'></td>" +
+            "<td>  <input class = 'labtableinput' id = 'lab85' value = '" + periodnext[139] + "'></td>" +
+            "<td>  <input class = 'labtableinput' id = 'lab86' value = '" + periodnext[140] + "'></td>" +
+            "<td>  <input class = 'labtableinput' id = 'lab87' value = '" + periodnext[141] + "'></td>" +
+            "<td>  <input class = 'labtableinput' id = 'lab88' value = '" + periodnext[142] + "'></td>" +
+            "<td>  <input class = 'labtableinput' id = 'lab89' value = '" + periodnext[143] + "'></td>"
+        "</tr>";
+
+        tables1 += "<tr>" +
+            "<th>" + "Friday" + "</th>" +
+            "<td>  <input class = 'labtableinput' id = 'lab90' value = '" + periodnext[36] + "'></td>" +
+            "<td>  <input class = 'labtableinput' id = 'lab91' value = '" + periodnext[37] + "'></td>" +
+            "<td>  <input class = 'labtableinput' id = 'lab92' value = '" + periodnext[38] + "'></td>" +
+            "<td>  <input class = 'labtableinput' id = 'lab93' value = '" + periodnext[39] + "'></td>" +
+            "<td>  <input class = 'labtableinput' id = 'lab94' value = '" + periodnext[40] + "'></td>" +
+            "<td>  <input class = 'labtableinput' id = 'lab95' value = '" + periodnext[41] + "'></td>" +
+            "<td>  <input class = 'labtableinput' id = 'lab96' value = '" + periodnext[42] + "'></td>" +
+            "<td>  <input class = 'labtableinput' id = 'lab97' value = '" + periodnext[43] + "'></td>" +
+            "<td>  <input class = 'labtableinput' id = 'lab98' value = '" + periodnext[44] + "'></td>"
+        "</tr>";
+
+        tables1 += "<tr>" +
+            "<th>" + "Saturday" + "</th>" +
+            "<td>  <input class = 'labtableinput' id = 'lab99' value = '" + periodnext[45] + "'></td>" +
+            "<td>  <input class = 'labtableinput' id = 'lab100' value = '" + periodnext[46] + "'></td>" +
+            "<td>  <input class = 'labtableinput' id = 'lab101' value = '" + periodnext[47] + "'></td>" +
+            "<td>  <input class = 'labtableinput' id = 'lab102' value = '" + periodnext[48] + "'></td>" +
+            "<td>  <input class = 'labtableinput' id = 'lab103' value = '" + periodnext[49] + "'></td>" +
+            "<td>  <input class = 'labtableinput' id = 'lab104' value = '" + periodnext[50] + "'></td>" +
+            "<td>  <input class = 'labtableinput' id = 'lab105' value = '" + periodnext[51] + "'></td>" +
+            "<td>  <input class = 'labtableinput' id = 'lab106' value = '" + periodnext[52] + "'></td>" +
+            "<td>  <input class = 'labtableinput' id = 'lab107' value = '" + periodnext[53] + "'></td>"
+        "</tr>";
+
+        
+
+
+
+        tablediv1.innerHTML = "<table>" + tables1 + "</table>"
+
+
+        let tables2 = "";
+        let tableno2 = "tableno";
+        classname2 = document.createElement("h1")
+        classname2.innerHTML = "Class " + (3)
+
+        parentdiv = document.getElementById("labinp")
+        parentdiv.append(classname2)
+        tablediv2 = document.createElement("div")
+        parentdiv.append(tablediv2)
+        tablediv2.setAttribute("id", tableno2)
+        
+        tables2 += "<tr>" +
+            "<th>" + "Period" + "</th>" +
+            "<th>" + "1" + "</th>" +
+            "<th>" + "2" + "</th>" +
+            "<th>" + "3" + "</th>" +
+            "<th>" + "4" + "</th>" +
+            "<th>" + "5" + "</th>" +
+            "<th>" + "6" + "</th>" +
+            "<th>" + "7" + "</th>" +
+            "<th>" + "8" + "</th>" +
+            "<th>" + "9" + "</th>"
+        "</tr>";
+
+
+        tables2 += "<tr>" +
+            "<th>" + "Monday" + "</th>" +
+            "<td>   <input class = 'labtableinput' id = 'lab108' value = '" + periodnext[108] + "'></td>" +
+            "<td>   <input class = 'labtableinput' id = 'lab109' value = '" + periodnext[109] + "'></td>" +
+            "<td>   <input class = 'labtableinput' id = 'lab110' value = '" + periodnext[110] + "'></td>" +
+            "<td>   <input class = 'labtableinput' id = 'lab111' value = '" + periodnext[111] + "'></td>" +
+            "<td>   <input class = 'labtableinput' id = 'lab112' value = '" + periodnext[112] + "'></td>" +
+            "<td>   <input class = 'labtableinput' id = 'lab113' value = '" + periodnext[113] + "'></td>" +
+            "<td>   <input class = 'labtableinput' id = 'lab114' value = '" + periodnext[114] + "'></td>" +
+            "<td>   <input class = 'labtableinput' id = 'lab115' value = '" + periodnext[115] + "'></td>" +
+            "<td>   <input class = 'labtableinput' id = 'lab116' value = '" + periodnext[116] + "'></td>"
+        "'></tr>";
+
+        tables2 += "<tr>" +
+            "<th>" + "Tuesday" + "</th>" +
+            "<td>   <input class = 'labtableinput' id = 'lab117' value = '" + periodnext[117] + "'></td>" +
+            "<td>   <input class = 'labtableinput' id = 'lab118' value = '" + periodnext[118] + "'></td>" +
+            "<td>   <input class = 'labtableinput' id = 'lab119' value = '" + periodnext[119] + "'></td>" +
+            "<td>   <input class = 'labtableinput' id = 'lab120' value = '" + periodnext[120] + "'></td>" +
+            "<td>   <input class = 'labtableinput' id = 'lab121' value = '" + periodnext[121] + "'></td>" +
+            "<td>   <input class = 'labtableinput' id = 'lab122' value = '" + periodnext[122] + "'></td>" +
+            "<td>   <input class = 'labtableinput' id = 'lab123' value = '" + periodnext[123] + "'></td>" +
+            "<td>   <input class = 'labtableinput' id = 'lab124' value = '" + periodnext[124] + "'></td>" +
+            "<td>   <input class = 'labtableinput' id = 'lab125' value = '" + periodnext[125] + "'></td>"
+        "'></tr>";
+
+        tables2 += "<tr>" +
+            "<th>" + "Wednesday" + "</th>" +
+            "<td>   <input class = 'labtableinput' id = 'lab126' value = '" + periodnext[18] + "'></td>" +
+            "<td>   <input class = 'labtableinput' id = 'lab127' value = '" + periodnext[19] + "'></td>" +
+            "<td>   <input class = 'labtableinput' id = 'lab128' value = '" + periodnext[20] + "'></td>" +
+            "<td>   <input class = 'labtableinput' id = 'lab129' value = '" + periodnext[21] + "'></td>" +
+            "<td>   <input class = 'labtableinput' id = 'lab130' value = '" + periodnext[22] + "'></td>" +
+            "<td>   <input class = 'labtableinput' id = 'lab131' value = '" + periodnext[23] + "'></td>" +
+            "<td>   <input class = 'labtableinput' id = 'lab132' value = '" + periodnext[24] + "'></td>" +
+            "<td>   <input class = 'labtableinput' id = 'lab133' value = '" + periodnext[25] + "'></td>" +
+            "<td>   <input class = 'labtableinput' id = 'lab134' value = '" + periodnext[26] + "'></td>"
+        "'></tr>";
+
+        tables2 += "<tr>" +
+            "<th>" + "Thursday" + "</th>" +
+            "<td>   <input class = 'labtableinput' id = 'lab135' value = '" + periodnext[27] + "'></td>" +
+            "<td>   <input class = 'labtableinput' id = 'lab136' value = '" + periodnext[28] + "'></td>" +
+            "<td>   <input class = 'labtableinput' id = 'lab137' value = '" + periodnext[29] + "'></td>" +
+            "<td>   <input class = 'labtableinput' id = 'lab138' value = '" + periodnext[30] + "'></td>" +
+            "<td>   <input class = 'labtableinput' id = 'lab139' value = '" + periodnext[31] + "'></td>" +
+            "<td>   <input class = 'labtableinput' id = 'lab140' value = '" + periodnext[32] + "'></td>" +
+            "<td>   <input class = 'labtableinput' id = 'lab141' value = '" + periodnext[33] + "'></td>" +
+            "<td>   <input class = 'labtableinput' id = 'lab142' value = '" + periodnext[34] + "'></td>" +
+            "<td>   <input class = 'labtableinput' id = 'lab143' value = '" + periodnext[35] + "'></td>"
+        "'></tr>";
+
+        tables2 += "<tr>" +
+            "<th>" + "Friday" + "</th>" +
+            "<td>   <input class = 'labtableinput' id = 'lab144' value = '" + periodnext[90] + "'></td>" +
+            "<td>   <input class = 'labtableinput' id = 'lab145' value = '" + periodnext[91] + "'></td>" +
+            "<td>   <input class = 'labtableinput' id = 'lab146' value = '" + periodnext[92] + "'></td>" +
+            "<td>   <input class = 'labtableinput' id = 'lab147' value = '" + periodnext[93] + "'></td>" +
+            "<td>   <input class = 'labtableinput' id = 'lab148' value = '" + periodnext[94] + "'></td>" +
+            "<td>   <input class = 'labtableinput' id = 'lab149' value = '" + periodnext[95] + "'></td>" +
+            "<td>   <input class = 'labtableinput' id = 'lab150' value = '" + periodnext[96] + "'></td>" +
+            "<td>   <input class = 'labtableinput' id = 'lab151' value = '" + periodnext[97] + "'></td>" +
+            "<td>   <input class = 'labtableinput' id = 'lab152' value = '" + periodnext[98] + "'></td>"
+        "'></tr>";
+
+        tables2 += "<tr>" +
+            "<th>" + "Saturday" + "</th>" +
+            "<td>   <input class = 'labtableinput' id = 'lab153' value = '" + periodnext[99] + "'></td>" +
+            "<td>   <input class = 'labtableinput' id = 'lab154' value = '" + periodnext[100] + "'></td>" +
+            "<td>   <input class = 'labtableinput' id = 'lab155' value = '" + periodnext[101] + "'></td>" +
+            "<td>   <input class = 'labtableinput' id = 'lab156' value = '" + periodnext[102] + "'></td>" +
+            "<td>   <input class = 'labtableinput' id = 'lab157' value = '" + periodnext[103] + "'></td>" +
+            "<td>   <input class = 'labtableinput' id = 'lab158' value = '" + periodnext[104] + "'></td>" +
+            "<td>   <input class = 'labtableinput' id = 'lab159' value = '" + periodnext[105] + "'></td>" +
+            "<td>   <input class = 'labtableinput' id = 'lab160' value = '" + periodnext[106] + "'></td>" +
+            "<td>   <input class = 'labtableinput' id = 'lab161' value = '" + periodnext[107] + "'></td>"
+        "</tr>";
+
+        tablediv2.innerHTML = "<table>" + tables2 + "</table>"
+        
+
+    }
+
+</script>
+
+</html>
